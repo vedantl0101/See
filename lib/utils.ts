@@ -52,6 +52,18 @@ export const dataUrl = `data:image/svg+xml;base64,${toBase64(
 )}`;
 // ==== End
 
+// Type Declarations
+interface FormUrlQueryParams {
+  searchParams: URLSearchParams;
+  key: string;
+  value: string;
+}
+
+interface RemoveUrlQueryParams {
+  searchParams: URLSearchParams;
+  keysToRemove: string[];
+}
+
 // FORM URL QUERY
 export const formUrlQuery = ({
   searchParams,
@@ -70,9 +82,9 @@ export function removeKeysFromQuery({
   searchParams,
   keysToRemove,
 }: RemoveUrlQueryParams) {
-  const currentUrl = qs.parse(searchParams);
+  const currentUrl = qs.parse(searchParams.toString());
 
-  keysToRemove.forEach((key) => {
+  keysToRemove.forEach((key: string) => {
     delete currentUrl[key];
   });
 
@@ -93,7 +105,7 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
   };
 };
 
-// GE IMAGE SIZE
+// GET IMAGE SIZE
 export type AspectRatioKey = keyof typeof aspectRatioOptions;
 export const getImageSize = (
   type: string,
