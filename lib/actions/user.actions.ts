@@ -6,6 +6,26 @@ import User from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
 
+// Update CreateUserParams to allow string | null for firstName and lastName
+export type CreateUserParams = {
+  clerkId: string;
+  email: string;
+  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  photo: string;
+};
+
+// Update UpdateUserParams to allow string | null for firstName and lastName (if it exists)
+export type UpdateUserParams = {
+  email?: string;
+  username?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  photo?: string;
+  creditBalance?: number;
+};
+
 // CREATE
 export async function createUser(user: CreateUserParams) {
   try {
