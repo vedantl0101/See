@@ -22,11 +22,9 @@ const UserSchema = new Schema({
   },
   firstName: {
     type: String,
-    default: '',  
   },
   lastName: {
     type: String,
-    default: '',  
   },
   planId: {
     type: Number,

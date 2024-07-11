@@ -22,7 +22,7 @@ export const handleError = (error: unknown) => {
     throw new Error(`Error: ${error}`);
   } else {
     // This is an unknown type of error
-    console.error('Unknown error:', error);
+    console.error(error);
     throw new Error(`Unknown error: ${JSON.stringify(error)}`);
   }
 };
@@ -70,7 +70,7 @@ export function removeKeysFromQuery({
   searchParams,
   keysToRemove,
 }: RemoveUrlQueryParams) {
-  const currentUrl = qs.parse(searchParams.toString());
+  const currentUrl = qs.parse(searchParams);
 
   keysToRemove.forEach((key) => {
     delete currentUrl[key];
@@ -93,7 +93,7 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
   };
 };
 
-// GET IMAGE SIZE
+// GE IMAGE SIZE
 export type AspectRatioKey = keyof typeof aspectRatioOptions;
 export const getImageSize = (
   type: string,
@@ -127,12 +127,12 @@ export const download = (url: string, filename: string) => {
       document.body.appendChild(a);
       a.click();
     })
-    .catch((error) => handleError(error)); // Use handleError for error handling
+    .catch((error) => console.log({ error }));
 };
 
 // DEEP MERGE OBJECTS
 export const deepMergeObjects = (obj1: any, obj2: any) => {
-  if (obj2 === null || obj2 === undefined) {
+  if(obj2 === null || obj2 === undefined) {
     return obj1;
   }
 
