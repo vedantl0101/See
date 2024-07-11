@@ -22,7 +22,7 @@ export const handleError = (error: unknown) => {
     throw new Error(`Error: ${error}`);
   } else {
     // This is an unknown type of error
-    console.error('Unknown error:', error);
+    console.error(error);
     throw new Error(`Unknown error: ${JSON.stringify(error)}`);
   }
 };
@@ -52,6 +52,18 @@ export const dataUrl = `data:image/svg+xml;base64,${toBase64(
 )}`;
 // ==== End
 
+// Type Declarations
+interface FormUrlQueryParams {
+  searchParams: URLSearchParams;
+  key: string;
+  value: string;
+}
+
+interface RemoveUrlQueryParams {
+  searchParams: URLSearchParams;
+  keysToRemove: string[];
+}
+
 // FORM URL QUERY
 export const formUrlQuery = ({
   searchParams,
@@ -72,7 +84,7 @@ export function removeKeysFromQuery({
 }: RemoveUrlQueryParams) {
   const currentUrl = qs.parse(searchParams.toString());
 
-  keysToRemove.forEach((key) => {
+  keysToRemove.forEach((key: string) => {
     delete currentUrl[key];
   });
 
@@ -127,12 +139,12 @@ export const download = (url: string, filename: string) => {
       document.body.appendChild(a);
       a.click();
     })
-    .catch((error) => handleError(error)); // Use handleError for error handling
+    .catch((error) => console.log({ error }));
 };
 
 // DEEP MERGE OBJECTS
 export const deepMergeObjects = (obj1: any, obj2: any) => {
-  if (obj2 === null || obj2 === undefined) {
+  if(obj2 === null || obj2 === undefined) {
     return obj1;
   }
 
